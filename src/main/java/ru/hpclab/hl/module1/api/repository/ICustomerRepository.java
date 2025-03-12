@@ -7,11 +7,4 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ICustomerRepository {
-    List<Customer> findAll();
-    Customer findById(UUID id);
-    void delete(UUID id);
-    Customer save(Customer entity);
-    Customer update(Customer entity);
-    void clear();
-}
+public interface ICustomerRepository extends IRestFullRepository<Customer> {}

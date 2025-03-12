@@ -1,7 +1,7 @@
 package ru.hpclab.hl.module1.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.hpclab.hl.module1.api.repository.IRestFullService;
+import ru.hpclab.hl.module1.api.service.IRestFullService;
 
 import java.util.List;
 import java.util.UUID;

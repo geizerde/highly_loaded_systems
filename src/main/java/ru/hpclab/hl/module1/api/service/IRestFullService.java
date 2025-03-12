@@ -1,4 +1,4 @@
-package ru.hpclab.hl.module1.api.repository;
+package ru.hpclab.hl.module1.api.service;
 
 import java.util.List;
 import java.util.UUID;

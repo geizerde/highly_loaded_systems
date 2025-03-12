@@ -1,8 +1,10 @@
 package ru.hpclab.hl.module1.repository.inMemory;
 
+import ru.hpclab.hl.module1.api.repository.IRestFullRepository;
+
 import java.util.*;
 
-abstract class AbstractInMemoryRepository<T> {
+abstract class AbstractInMemoryRepository<T> implements IRestFullRepository<T> {
     protected abstract Map<UUID, T> getStorage();
 
     public List<T> findAll() {
