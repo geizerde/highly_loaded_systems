@@ -7,16 +7,15 @@ import ru.hpclab.hl.module1.model.order.Order;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Primary
 @Repository
 public class InMemoryOrderRepository extends AbstractInMemoryRepository<Order>
         implements IOrderRepository {
-    private static final Map<UUID, Order> orderStorage = new HashMap<>();
+    private static final Map<Long, Order> orderStorage = new HashMap<>();
 
     @Override
-    protected Map<UUID, Order> getStorage() {
+    protected Map<Long, Order> getStorage() {
         return orderStorage;
     }
 }

@@ -1,6 +1,8 @@
 package ru.hpclab.hl.module1.model;
 
 import lombok.*;
+import ru.hpclab.hl.module1.api.model.Identifiable;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -9,8 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
-    private UUID id;
+public class Product implements Identifiable {
+    private Long id;
+    private UUID identifier;
     private String name;
     private String category;
     private BigDecimal price;

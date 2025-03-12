@@ -45,7 +45,7 @@ public class CustomerControllerTest {
 
     @BeforeEach
     public void setUp() {
-        sampleCustomer = new Customer(UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDate.now());
+        sampleCustomer = new Customer(1L, UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDate.now());
     }
 
     @Test
@@ -66,8 +66,8 @@ public class CustomerControllerTest {
     @Test
     public void getAllCustomers_shouldReturnListOfCustomers() throws Exception {
         List<Customer> customers = Arrays.asList(
-                new Customer(UUID.randomUUID(), "Alice Smith", "alice@example.com", "111222333", LocalDate.now()),
-                new Customer(UUID.randomUUID(), "Bob Johnson", "bob@example.com", "444555666", LocalDate.now())
+                new Customer(2L, UUID.randomUUID(), "Alice Smith", "alice@example.com", "111222333", LocalDate.now()),
+                new Customer(3L, UUID.randomUUID(), "Bob Johnson", "bob@example.com", "444555666", LocalDate.now())
         );
 
         when(customerService.getAll()).thenReturn(customers);

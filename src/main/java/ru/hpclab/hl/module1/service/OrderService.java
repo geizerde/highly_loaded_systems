@@ -5,7 +5,6 @@ import ru.hpclab.hl.module1.api.repository.IOrderRepository;
 import ru.hpclab.hl.module1.model.order.Order;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Service
 public class OrderService extends AbstractRestFullService<Order> {
@@ -13,7 +12,7 @@ public class OrderService extends AbstractRestFullService<Order> {
         super(orderRepository);
     }
 
-    public BigDecimal calculateTotalPrice(UUID orderId) {
+    public BigDecimal calculateTotalPrice(Long orderId) {
         Order order = getById(orderId);
         return order.getOrderItems().stream()
                 .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))

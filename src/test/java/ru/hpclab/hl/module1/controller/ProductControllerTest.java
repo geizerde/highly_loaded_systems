@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Import(ProductControllerTest.TestConfig.class)
 public class ProductControllerTest {
-    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());;
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Autowired
     private MockMvc mvc;
@@ -42,12 +42,12 @@ public class ProductControllerTest {
     private ProductService productService;
 
     private Product sampleProduct;
-    private UUID productId;
+    private Long productId;
 
     @BeforeEach
     public void setUp() {
-        productId = UUID.randomUUID();
-        sampleProduct = new Product(productId, "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP");
+        productId = 1L;
+        sampleProduct = new Product(productId, UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP");
     }
 
     @Test
@@ -68,8 +68,8 @@ public class ProductControllerTest {
     @Test
     public void getAllProducts_shouldReturnListOfProducts() throws Exception {
         List<Product> products = Arrays.asList(
-                new Product(UUID.randomUUID(), "Smartphone", "Electronics", BigDecimal.valueOf(499.99), "Samsung"),
-                new Product(UUID.randomUUID(), "Tablet", "Electronics", BigDecimal.valueOf(299.99), "Apple")
+                new Product(2L, UUID.randomUUID(), "Smartphone", "Electronics", BigDecimal.valueOf(499.99), "Samsung"),
+                new Product(3L, UUID.randomUUID(), "Tablet", "Electronics", BigDecimal.valueOf(299.99), "Apple")
         );
 
         when(productService.getAll()).thenReturn(products);

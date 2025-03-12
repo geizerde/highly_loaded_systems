@@ -1,12 +1,12 @@
 package ru.hpclab.hl.module1.controller;
 
 import org.springframework.web.bind.annotation.*;
+import ru.hpclab.hl.module1.api.model.Identifiable;
 import ru.hpclab.hl.module1.api.service.IRestFullService;
 
 import java.util.List;
-import java.util.UUID;
 
-public abstract class AbstractRestController<T> {
+public abstract class AbstractRestController<T extends Identifiable> {
     protected final IRestFullService<T> service;
 
     protected AbstractRestController(IRestFullService<T> service) {
@@ -24,17 +24,17 @@ public abstract class AbstractRestController<T> {
     }
 
     @PutMapping("/{id}")
-    public T update(@PathVariable UUID id, @RequestBody T entity) {
+    public T update(@PathVariable Long id, @RequestBody T entity) {
         return service.update(id, entity);
     }
 
     @GetMapping("/{id}")
-    public T getById(@PathVariable UUID id) {
+    public T getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id) {
+    public void delete(@PathVariable Long id) {
         service.delete(id);
     }
 

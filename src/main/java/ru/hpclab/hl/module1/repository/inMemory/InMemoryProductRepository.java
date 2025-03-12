@@ -7,16 +7,15 @@ import ru.hpclab.hl.module1.model.Product;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @Primary
 @Repository
 public class InMemoryProductRepository extends AbstractInMemoryRepository<Product>
         implements IProductRepository {
-    private static final Map<UUID, Product> productStorage = new HashMap<>();
+    private static final Map<Long, Product> productStorage = new HashMap<>();
 
     @Override
-    protected Map<UUID, Product> getStorage() {
+    protected Map<Long, Product> getStorage() {
         return productStorage;
     }
 }

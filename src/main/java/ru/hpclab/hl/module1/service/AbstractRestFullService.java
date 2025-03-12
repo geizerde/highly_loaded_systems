@@ -1,12 +1,12 @@
 package ru.hpclab.hl.module1.service;
 
+import ru.hpclab.hl.module1.api.model.Identifiable;
 import ru.hpclab.hl.module1.api.repository.IRestFullRepository;
 import ru.hpclab.hl.module1.api.service.IRestFullService;
 
 import java.util.List;
-import java.util.UUID;
 
-public abstract class AbstractRestFullService<T> implements IRestFullService<T> {
+public abstract class AbstractRestFullService<T extends Identifiable> implements IRestFullService<T> {
     protected final IRestFullRepository<T> repository;
 
     public AbstractRestFullService(IRestFullRepository<T> repository) {
@@ -24,17 +24,17 @@ public abstract class AbstractRestFullService<T> implements IRestFullService<T> 
     }
 
     @Override
-    public T getById(UUID id) {
+    public T getById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Long id) {
         repository.delete(id);
     }
 
     @Override
-    public T update(UUID id, T updatedEntity) {
+    public T update(Long id, T updatedEntity) {
         return repository.update(updatedEntity);
     }
 

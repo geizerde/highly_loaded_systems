@@ -15,8 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.hpclab.hl.module1.Application;
-import ru.hpclab.hl.module1.model.*;
-
+import ru.hpclab.hl.module1.model.Customer;
+import ru.hpclab.hl.module1.model.Product;
 import ru.hpclab.hl.module1.model.order.Order;
 import ru.hpclab.hl.module1.model.order.OrderItem;
 import ru.hpclab.hl.module1.model.order.PaymentStatus;
@@ -31,14 +31,15 @@ import java.util.UUID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
 @Import(OrderControllerTest.TestConfig.class)
 public class OrderControllerTest {
-    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());;
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Autowired
     private MockMvc mvc;
@@ -47,11 +48,11 @@ public class OrderControllerTest {
     private OrderService orderService;
 
     private Order sampleOrder;
-    private UUID orderId;
+    private Long orderId;
 
     @BeforeEach
     public void setUp() {
-        orderId = UUID.randomUUID();
+        orderId = 1L;
         sampleOrder = createSampleOrder(orderId);
     }
 
@@ -73,8 +74,8 @@ public class OrderControllerTest {
     @Test
     public void getAllOrders_shouldReturnListOfOrders() throws Exception {
         List<Order> orders = Arrays.asList(
-                createSampleOrder(UUID.randomUUID()),
-                createSampleOrder(UUID.randomUUID())
+                createSampleOrder(2L),
+                createSampleOrder(3L)
         );
 
         when(orderService.getAll()).thenReturn(orders);
@@ -119,16 +120,16 @@ public class OrderControllerTest {
         verify(orderService, times(1)).calculateTotalPrice(orderId);
     }
 
-    private Order createSampleOrder(UUID id) {
-        Product product1 = new Product(UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP");
-        Product product2 = new Product(UUID.randomUUID(), "Smartphone", "Electronics", BigDecimal.valueOf(499.99), "Samsung");
+    private Order createSampleOrder(Long id) {
+        Product product1 = new Product(1L, UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP");
+        Product product2 = new Product(2L, UUID.randomUUID(), "Smartphone", "Electronics", BigDecimal.valueOf(499.99), "Samsung");
 
-        OrderItem item1 = new OrderItem(product1, 1);
-        OrderItem item2 = new OrderItem(product2, 2);
+        OrderItem item1 = new OrderItem(1L, UUID.randomUUID(), product1, 1);
+        OrderItem item2 = new OrderItem(2L, UUID.randomUUID(), product2, 2);
 
-        Customer customer = new Customer(UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDateTime.now().toLocalDate());
+        Customer customer = new Customer(1L, UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDateTime.now().toLocalDate());
 
-        return new Order(id, Arrays.asList(item1, item2), customer, LocalDateTime.now(), PaymentStatus.PAID);
+        return new Order(id, UUID.randomUUID(), Arrays.asList(item1, item2), customer, LocalDateTime.now(), PaymentStatus.PAID);
     }
 
     @Configuration

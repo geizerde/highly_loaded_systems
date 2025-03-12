@@ -1,6 +1,7 @@
 package ru.hpclab.hl.module1.model.order;
 
 import lombok.*;
+import ru.hpclab.hl.module1.api.model.Identifiable;
 import ru.hpclab.hl.module1.model.Customer;
 
 import java.time.LocalDateTime;
@@ -12,8 +13,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Order {
-    private UUID id;
+public class Order implements Identifiable {
+    private Long id;
+    private UUID identifier;
     private List<OrderItem> orderItems;
     private Customer customer;
     private LocalDateTime orderDate;

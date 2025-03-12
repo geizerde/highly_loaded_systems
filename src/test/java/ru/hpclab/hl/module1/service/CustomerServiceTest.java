@@ -32,7 +32,7 @@ public class CustomerServiceTest {
 
     @Test
     public void testRegisterAndGetCustomer() {
-        Customer customer = new Customer(UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDate.now());
+        Customer customer = new Customer(1L, UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDate.now());
 
         Customer savedCustomer = customerService.create(customer);
 
@@ -49,8 +49,8 @@ public class CustomerServiceTest {
 
     @Test
     public void testFindCustomerById() {
-        UUID id = UUID.randomUUID();
-        Customer customer = new Customer(id, "Test User", "test@example.com", "987654321", LocalDate.now());
+        Long id = 1L;
+        Customer customer = new Customer(id, UUID.randomUUID(), "Test User", "test@example.com", "987654321", LocalDate.now());
 
         when(customerRepository.findById(id)).thenReturn(customer);
 
@@ -61,7 +61,7 @@ public class CustomerServiceTest {
 
     @Test
     public void testFindCustomerById_NotFound() {
-        UUID id = UUID.randomUUID();
+        Long id = 2L;
         when(customerRepository.findById(id)).thenThrow(new NoSuchElementException("Customer not found"));
 
         Assertions.assertThrows(NoSuchElementException.class, () -> customerService.getById(id));
@@ -70,7 +70,7 @@ public class CustomerServiceTest {
 
     @Test
     public void testDeleteCustomer() {
-        UUID id = UUID.randomUUID();
+        Long id = 3L;
 
         customerService.delete(id);
         verify(customerRepository, times(1)).delete(id);
@@ -83,11 +83,11 @@ public class CustomerServiceTest {
         ICustomerRepository customerRepository() {
             ICustomerRepository customerRepository = mock(ICustomerRepository.class);
 
-            when(customerRepository.save(any())).thenReturn(new Customer(UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDate.now()));
+            when(customerRepository.save(any())).thenReturn(new Customer(1L, UUID.randomUUID(), "John Doe", "john@example.com", "123456789", LocalDate.now()));
 
             when(customerRepository.findAll()).thenReturn(Arrays.asList(
-                    new Customer(UUID.randomUUID(), "Alice Smith", "alice@example.com", "111222333", LocalDate.now()),
-                    new Customer(UUID.randomUUID(), "Bob Johnson", "bob@example.com", "444555666", LocalDate.now())
+                    new Customer(2L, UUID.randomUUID(), "Alice Smith", "alice@example.com", "111222333", LocalDate.now()),
+                    new Customer(3L, UUID.randomUUID(), "Bob Johnson", "bob@example.com", "444555666", LocalDate.now())
             ));
 
             return customerRepository;

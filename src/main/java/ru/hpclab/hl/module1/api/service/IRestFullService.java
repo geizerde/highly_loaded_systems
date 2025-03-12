@@ -1,13 +1,14 @@
 package ru.hpclab.hl.module1.api.service;
 
-import java.util.List;
-import java.util.UUID;
+import ru.hpclab.hl.module1.api.model.Identifiable;
 
-public interface IRestFullService<T> {
+import java.util.List;
+
+public interface IRestFullService<T extends Identifiable> {
     T create(T entity);
     List<T> getAll();
-    T getById(UUID id);
-    void delete(UUID id);
-    T update(UUID id, T entity);
+    T getById(Long id);
+    void delete(Long id);
+    T update(Long id, T entity);
     void clear();
 }

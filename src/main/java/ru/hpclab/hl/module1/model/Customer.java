@@ -1,6 +1,8 @@
 package ru.hpclab.hl.module1.model;
 
 import lombok.*;
+import ru.hpclab.hl.module1.api.model.Identifiable;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -9,8 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Customer {
-    private UUID id;
+public class Customer implements Identifiable {
+    private Long id;
+    private UUID identifier;
     private String fullName;
     private String email;
     private String phone;

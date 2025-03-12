@@ -32,7 +32,7 @@ public class ProductServiceTest {
 
     @Test
     public void testAddAndGetAllProducts() {
-        Product product = new Product(UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP");
+        Product product = new Product(1L, UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP");
 
         Product savedProduct = productService.create(product);
 
@@ -49,8 +49,8 @@ public class ProductServiceTest {
 
     @Test
     public void testGetProductById() {
-        UUID id = UUID.randomUUID();
-        Product product = new Product(id, "Headphones", "Audio", BigDecimal.valueOf(199.99), "Sony");
+        Long id = 2L;
+        Product product = new Product(id, UUID.randomUUID(), "Headphones", "Audio", BigDecimal.valueOf(199.99), "Sony");
 
         when(productRepository.findById(id)).thenReturn(product);
 
@@ -61,7 +61,7 @@ public class ProductServiceTest {
 
     @Test
     public void testGetProductById_NotFound() {
-        UUID id = UUID.randomUUID();
+        Long id = 3L;
         when(productRepository.findById(id)).thenThrow(new NoSuchElementException("Product not found"));
 
         Assertions.assertThrows(NoSuchElementException.class, () -> productService.getById(id));
@@ -70,7 +70,7 @@ public class ProductServiceTest {
 
     @Test
     public void testDeleteProduct() {
-        UUID id = UUID.randomUUID();
+        Long id = 4L;
 
         productService.delete(id);
         verify(productRepository, times(1)).delete(id);
@@ -83,11 +83,11 @@ public class ProductServiceTest {
         IProductRepository productRepository() {
             IProductRepository productRepository = mock(IProductRepository.class);
 
-            when(productRepository.save(any())).thenReturn(new Product(UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP"));
+            when(productRepository.save(any())).thenReturn(new Product(1L, UUID.randomUUID(), "Laptop", "Electronics", BigDecimal.valueOf(999.99), "HP"));
 
             when(productRepository.findAll()).thenReturn(Arrays.asList(
-                    new Product(UUID.randomUUID(), "Smartphone", "Electronics", BigDecimal.valueOf(499.99), "Samsung"),
-                    new Product(UUID.randomUUID(), "Tablet", "Electronics", BigDecimal.valueOf(299.99), "Apple")
+                    new Product(2L, UUID.randomUUID(), "Smartphone", "Electronics", BigDecimal.valueOf(499.99), "Samsung"),
+                    new Product(3L, UUID.randomUUID(), "Tablet", "Electronics", BigDecimal.valueOf(299.99), "Apple")
             ));
 
             return productRepository;
