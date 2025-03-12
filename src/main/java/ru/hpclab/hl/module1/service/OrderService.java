@@ -37,6 +37,18 @@ public class OrderService implements IRestFullService<Order> {
         orderRepository.delete(id);
     }
 
+    @Override
+    public Order update(UUID id, Order updatedOrder) {
+        Order existingOrder = getById(id);
+        updatedOrder.setId(existingOrder.getId()); // Сохраняем ID
+        return orderRepository.update(updatedOrder);
+    }
+
+    @Override
+    public void clear() {
+        orderRepository.clear();
+    }
+
     public BigDecimal calculateTotalPrice(UUID orderId) {
         Order order = getById(orderId);
         return order.getOrderItems().stream()

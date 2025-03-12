@@ -8,4 +8,6 @@ public interface IRestFullService<T> {
     List<T> getAll();
     T getById(UUID id);
     void delete(UUID id);
+    T update(UUID id, T entity);
+    void clear();
 }

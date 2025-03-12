@@ -23,6 +23,11 @@ public abstract class AbstractRestController<T> {
         return service.getAll();
     }
 
+    @PutMapping("/{id}")
+    public T update(@PathVariable UUID id, @RequestBody T entity) {
+        return service.update(id, entity);
+    }
+
     @GetMapping("/{id}")
     public T getById(@PathVariable UUID id) {
         return service.getById(id);
@@ -31,5 +36,10 @@ public abstract class AbstractRestController<T> {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id) {
         service.delete(id);
+    }
+
+    @DeleteMapping("/clear")
+    public void clear() {
+        service.clear();
     }
 }

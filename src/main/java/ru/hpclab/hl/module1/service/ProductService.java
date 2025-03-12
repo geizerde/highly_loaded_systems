@@ -35,4 +35,16 @@ public class ProductService implements IRestFullService<Product> {
     public void delete(UUID id) {
         productRepository.delete(id);
     }
+
+    @Override
+    public Product update(UUID id, Product updatedProduct) {
+        Product existingProduct = getById(id);
+        updatedProduct.setId(existingProduct.getId()); // Сохраняем ID
+        return productRepository.update(updatedProduct);
+    }
+
+    @Override
+    public void clear() {
+        productRepository.clear();
+    }
 }

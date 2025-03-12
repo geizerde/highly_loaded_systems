@@ -35,4 +35,16 @@ public class CustomerService implements IRestFullService<Customer> {
     public void delete(UUID id) {
         customerRepository.delete(id);
     }
+
+    @Override
+    public Customer update(UUID id, Customer updatedCustomer) {
+        Customer existingCustomer = getById(id);
+        updatedCustomer.setId(existingCustomer.getId());
+        return customerRepository.update(updatedCustomer);
+    }
+
+    @Override
+    public void clear() {
+        customerRepository.clear();
+    }
 }
