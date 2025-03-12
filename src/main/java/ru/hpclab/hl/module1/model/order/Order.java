@@ -1,6 +1,8 @@
-package ru.hpclab.hl.module1.model;
+package ru.hpclab.hl.module1.model.order;
 
 import lombok.*;
+import ru.hpclab.hl.module1.model.Customer;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;

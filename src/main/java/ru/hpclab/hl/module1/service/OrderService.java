@@ -3,7 +3,7 @@ package ru.hpclab.hl.module1.service;
 import org.springframework.stereotype.Service;
 import ru.hpclab.hl.module1.api.repository.IOrderRepository;
 import ru.hpclab.hl.module1.api.repository.IRestFullService;
-import ru.hpclab.hl.module1.model.Order;
+import ru.hpclab.hl.module1.model.order.Order;
 
 import java.math.BigDecimal;
 import java.util.List;

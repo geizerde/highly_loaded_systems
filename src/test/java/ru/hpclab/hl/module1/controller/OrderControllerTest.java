@@ -17,6 +17,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import ru.hpclab.hl.module1.Application;
 import ru.hpclab.hl.module1.model.*;
 
+import ru.hpclab.hl.module1.model.order.Order;
+import ru.hpclab.hl.module1.model.order.OrderItem;
+import ru.hpclab.hl.module1.model.order.PaymentStatus;
 import ru.hpclab.hl.module1.service.OrderService;
 
 import java.math.BigDecimal;

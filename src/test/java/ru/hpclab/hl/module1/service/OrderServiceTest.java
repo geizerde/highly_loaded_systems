@@ -10,6 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.hpclab.hl.module1.api.repository.IOrderRepository;
 import ru.hpclab.hl.module1.model.*;
+import ru.hpclab.hl.module1.model.order.Order;
+import ru.hpclab.hl.module1.model.order.OrderItem;
+import ru.hpclab.hl.module1.model.order.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
