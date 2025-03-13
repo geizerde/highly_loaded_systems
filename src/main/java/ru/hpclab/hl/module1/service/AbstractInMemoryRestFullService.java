@@ -6,10 +6,10 @@ import ru.hpclab.hl.module1.api.service.IRestFullService;
 
 import java.util.List;
 
-public abstract class AbstractRestFullService<T extends Identifiable> implements IRestFullService<T> {
+public abstract class AbstractInMemoryRestFullService<T extends Identifiable> implements IRestFullService<T> {
     protected final IRestFullRepository<T> repository;
 
-    public AbstractRestFullService(IRestFullRepository<T> repository) {
+    public AbstractInMemoryRestFullService(IRestFullRepository<T> repository) {
         this.repository = repository;
     }
 

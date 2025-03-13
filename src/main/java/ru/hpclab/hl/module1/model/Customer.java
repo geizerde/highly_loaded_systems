@@ -1,5 +1,6 @@
 package ru.hpclab.hl.module1.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import ru.hpclab.hl.module1.api.model.Identifiable;
 
@@ -18,5 +19,6 @@ public class Customer implements Identifiable {
     private String fullName;
     private String email;
     private String phone;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate registrationDate;
 }
