@@ -13,7 +13,8 @@ import java.util.UUID;
 @Builder
 public class OrderItem implements Identifiable {
     private Long id;
-    private UUID identifier;
+    @Builder.Default
+    private UUID identifier = UUID.randomUUID();
     private Product product;
     private int quantity;
 }

@@ -13,7 +13,8 @@ import java.util.UUID;
 @Builder
 public class Customer implements Identifiable {
     private Long id;
-    private UUID identifier;
+    @Builder.Default
+    private UUID identifier = UUID.randomUUID();
     private String fullName;
     private String email;
     private String phone;

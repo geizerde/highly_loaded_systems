@@ -13,7 +13,8 @@ import java.util.UUID;
 @Builder
 public class Product implements Identifiable {
     private Long id;
-    private UUID identifier;
+    @Builder.Default
+    private UUID identifier = UUID.randomUUID();
     private String name;
     private String category;
     private BigDecimal price;

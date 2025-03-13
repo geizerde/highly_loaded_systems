@@ -8,7 +8,6 @@ import ru.hpclab.hl.module1.model.order.Order;
 import java.util.HashMap;
 import java.util.Map;
 
-@Primary
 @Repository
 public class InMemoryOrderRepository extends AbstractInMemoryRepository<Order>
         implements IOrderRepository {

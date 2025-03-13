@@ -8,7 +8,6 @@ import ru.hpclab.hl.module1.model.Product;
 import java.util.HashMap;
 import java.util.Map;
 
-@Primary
 @Repository
 public class InMemoryProductRepository extends AbstractInMemoryRepository<Product>
         implements IProductRepository {

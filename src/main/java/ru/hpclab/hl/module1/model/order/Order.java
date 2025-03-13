@@ -15,7 +15,8 @@ import java.util.UUID;
 @Builder
 public class Order implements Identifiable {
     private Long id;
-    private UUID identifier;
+    @Builder.Default
+    private UUID identifier = UUID.randomUUID();
     private List<OrderItem> orderItems;
     private Customer customer;
     private LocalDateTime orderDate;

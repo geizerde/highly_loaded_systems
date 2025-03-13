@@ -35,6 +35,7 @@ public abstract class AbstractRestFullService<T extends Identifiable> implements
 
     @Override
     public T update(Long id, T updatedEntity) {
+        updatedEntity.setId(id);
         return repository.update(updatedEntity);
     }
 
