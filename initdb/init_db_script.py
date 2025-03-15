@@ -61,24 +61,24 @@ def generate_sql(filename, num_products=10, num_customers=5, num_orders=8, num_o
 
         for i in range(1, num_products + 1):
             f.write(
-                f"INSERT INTO t_product (id, identifier, name, category, manufacturer, price) VALUES ({i}, '{uuid.uuid4()}', 'Product_{i}', 'Category_{i % 3}', 'Manufacturer_{i % 2}', {random.uniform(10, 500):.2f});\n")
+                f"INSERT INTO t_product (identifier, name, category, manufacturer, price) VALUES ('{uuid.uuid4()}', 'Product_{i}', 'Category_{i % 3}', 'Manufacturer_{i % 2}', {random.uniform(10, 500):.2f});\n")
 
         for i in range(1, num_customers + 1):
             f.write(
-                f"INSERT INTO t_customer (id, identifier, full_name, email, phone, registration_date) VALUES ({i}, '{uuid.uuid4()}', 'Customer_{i}', 'customer{i}@example.com', '+123456789{i}', '{(datetime.now() - timedelta(days=random.randint(30, 365))).date()}');\n")
+                f"INSERT INTO t_customer (identifier, full_name, email, phone, registration_date) VALUES ('{uuid.uuid4()}', 'Customer_{i}', 'customer{i}@example.com', '+123456789{i}', '{(datetime.now() - timedelta(days=random.randint(30, 365))).date()}');\n")
 
         for i in range(1, num_orders + 1):
             customer_id = random.randint(1, num_customers)
             payment_status = random.choice(payment_statuses)
             f.write(
-                f"INSERT INTO t_orders (id, identifier, customer_id, order_date, payment_status) VALUES ({i}, '{uuid.uuid4()}', {customer_id}, '{datetime.now() - timedelta(days=random.randint(1, 30))}', '{payment_status}');\n")
+                f"INSERT INTO t_orders (identifier, customer_id, order_date, payment_status) VALUES ('{uuid.uuid4()}', {customer_id}, '{datetime.now() - timedelta(days=random.randint(1, 30))}', '{payment_status}');\n")
 
         for i in range(1, num_order_items + 1):
             order_id = random.randint(1, num_orders)
             product_id = random.randint(1, num_products)
             quantity = random.randint(1, 10)
             f.write(
-                f"INSERT INTO t_order_item (id, identifier, order_id, product_id, quantity) VALUES ({i}, '{uuid.uuid4()}', {order_id}, {product_id}, {quantity});\n")
+                f"INSERT INTO t_order_item (identifier, order_id, product_id, quantity) VALUES ('{uuid.uuid4()}', {order_id}, {product_id}, {quantity});\n")
 
         f.write("COMMIT;\n")
 
