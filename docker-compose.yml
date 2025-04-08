@@ -1,14 +1,4 @@
 services:
-  init-db:
-    image: python:3.11-alpine
-    container_name: db-init
-    volumes:
-      - ./initdb:/initdb
-    working_dir: /initdb
-    entrypoint: ["python", "init_db_script.py"]
-    networks:
-      - app-network
-
   database:
     image: postgres:16.1-alpine3.18
     container_name: pg-docker
@@ -19,13 +9,8 @@ services:
       POSTGRES_DB: ${DB_NAME:-module1}
     ports:
       - "${DB_PORT:-5432}:5432"
-    volumes:
-      - ./initdb/scripts:/docker-entrypoint-initdb.d
     networks:
       - app-network
-    depends_on:
-      init-db:
-        condition: service_completed_successfully
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-module1}"]
       interval: 10s
@@ -34,7 +19,7 @@ services:
       start_period: 10s
 
   app:
-    image: geizerde/highly_loaded_systems_lab1:v1.0.0
+    image: geizerde/highly_loaded_systems_lab1:v1.1.0
     container_name: spring-boot-app
     restart: always
     depends_on:

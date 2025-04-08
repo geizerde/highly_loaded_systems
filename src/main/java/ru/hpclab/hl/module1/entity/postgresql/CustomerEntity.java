@@ -35,5 +35,12 @@ public class CustomerEntity implements Identifiable {
 
     @Column(nullable = false)
     private LocalDate registrationDate;
+
+    @PrePersist
+    public void prePersist() {
+        if (registrationDate == null) {
+            registrationDate = LocalDate.now();
+        }
+    }
 }
 
