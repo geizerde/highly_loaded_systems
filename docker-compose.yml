@@ -29,6 +29,11 @@ services:
       - "${APP_PORT:-8080}:8080"
     networks:
       - app-network
+    deploy:
+      resources:
+        limits:
+          cpus: ${CPUS_LIMIT:-1}
+          memory: ${MEMORY_LIMIT:-500M}
     environment:
       DDL_AUTO: ${DDL_AUTO:-validate}
       SHOW_SQL: ${SHOW_SQL:-true}
@@ -40,6 +45,7 @@ services:
       DB_USERNAME: ${DB_USERNAME:-postgres}
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_DIALECT: ${DB_DIALECT:-org.hibernate.dialect.PostgreSQLDialect}
+      TOMCAT_THREADS: ${TOMCAT_THREADS:-200}
 
   pgadmin:
     image: dpage/pgadmin4:latest
