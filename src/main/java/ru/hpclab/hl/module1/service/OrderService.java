@@ -9,6 +9,7 @@ import ru.hpclab.hl.module1.entity.postgresql.OrderItemEntity;
 import ru.hpclab.hl.module1.model.order.Order;
 import ru.hpclab.hl.module1.repository.postgresql.jpa.OrderRepositoryJpa;
 import ru.hpclab.hl.module1.repository.postgresql.mapper.OrderMapper;
+import ru.hpclab.hl.module1.service.statistics.ObservabilityService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,8 +21,11 @@ import java.util.stream.Collectors;
 public class OrderService extends AbstractService {
     private final OrderRepositoryJpa repository;
     private final OrderMapper orderMapper;
+    private final ObservabilityService observabilityService;
 
     public OrderDTO create(Order entity) {
+        observabilityService.start(getClass().getSimpleName() + ":create");
+
         var orderItems = entity.getOrderItems();
 
         entity.setOrderItems(null);
@@ -44,36 +48,66 @@ public class OrderService extends AbstractService {
 
         existedEntity = repository.save(orderEntity);
 
+        observabilityService.stop(getClass().getSimpleName() + ":create");
+
         return orderMapper.entityToDTO(existedEntity);
     }
 
     public List<OrderDTO> getAll() {
+        observabilityService.start(getClass().getSimpleName() + ":getAll");
+
         List<OrderEntity> entities = repository.findAll();
+
+        observabilityService.stop(getClass().getSimpleName() + ":getAll");
+
         return entities.stream().map(orderMapper::entityToDTO).collect(Collectors.toList());
     }
 
     public OrderDTO getById(Long id) {
+        observabilityService.start(getClass().getSimpleName() + ":getById");
+
         Optional<OrderEntity> entityOpt = repository.findById(id);
+
+        observabilityService.stop(getClass().getSimpleName() + ":getById");
+
         return entityOpt.map(orderMapper::entityToDTO).orElse(null);
     }
 
     public void delete(Long id) {
+        observabilityService.start(getClass().getSimpleName() + ":delete");
+
         repository.deleteById(id);
+
+        observabilityService.stop(getClass().getSimpleName() + ":delete");
     }
 
     public OrderDTO update(Long id, Order updatedEntity) {
+        observabilityService.start(getClass().getSimpleName() + ":update");
+
         OrderEntity existedEntity = repository.findById(id).orElseThrow();
         BeanUtils.copyProperties(updatedEntity, existedEntity, getNullPropertyNames(updatedEntity));
         OrderEntity savedEntity = repository.save(existedEntity);
+
+        observabilityService.stop(getClass().getSimpleName() + ":update");
+
         return orderMapper.entityToDTO(savedEntity);
     }
 
     public void clear() {
+        observabilityService.start(getClass().getSimpleName() + ":clear");
+
         repository.deleteAll();
+
+        observabilityService.stop(getClass().getSimpleName() + ":clear");
     }
 
     public BigDecimal calculateTotalPrice(Long orderId) {
-        return repository.calculateTotalPrice(orderId);
+        observabilityService.start(getClass().getSimpleName() + ":calculateTotalPrice");
+
+        BigDecimal totalPrice = repository.calculateTotalPrice(orderId);
+
+        observabilityService.stop(getClass().getSimpleName() + ":calculateTotalPrice");
+
+        return totalPrice;
     }
 }
-

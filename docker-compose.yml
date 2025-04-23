@@ -19,7 +19,7 @@ services:
       start_period: 10s
 
   app:
-    image: geizerde/highly_loaded_systems_lab1:v1.2.0
+    image: geizerde/highly_loaded_systems_lab1:v1.3.0
     container_name: spring-boot-app
     restart: always
     depends_on:
@@ -46,6 +46,8 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_DIALECT: ${DB_DIALECT:-org.hibernate.dialect.PostgreSQLDialect}
       TOMCAT_THREADS: ${TOMCAT_THREADS:-200}
+      ENABLE_OBSERVABILITY_STATISTICS: ${ENABLE_OBSERVABILITY_STATISTICS:-true}
+      OBSERVABILITY_INTERVALS: ${OBSERVABILITY_INTERVALS:-10,30,60}
 
   pgadmin:
     image: dpage/pgadmin4:latest
