@@ -7,6 +7,7 @@ import ru.hpclab.hl.module1.model.statistics.Timing;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
 
 public class ObservabilityService {
@@ -16,7 +17,7 @@ public class ObservabilityService {
 
     private final int delay;
 
-    private final Set<Timing> timings = new TreeSet<>(Comparator.comparing(Timing::getStart));
+    private final Set<Timing> timings = new ConcurrentSkipListSet<>(Comparator.comparing(Timing::getStart));
 
     public ObservabilityService(List<Integer> intervals, int delay) {
         this.intervals = intervals;
